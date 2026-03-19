@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.js"></script>
 </head>
+
 <body>
 
-<h2>Chess Income</h2>
-<button onclick="play()">Play Game</button>
+<h2>Chess Game</h2>
+<div id="board" style="width: 100%"></div>
 
 <script>
-  let tg = window.Telegram.WebApp;
-  tg.expand();
+  var game = new Chess();
 
-  function play(){
-    tg.sendData("start_game");
-  }
+  var board = Chessboard('board', {
+    draggable: true,
+    position: 'start',
+    onDrop: function (source, target) {
+      var move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q'
+      });
+
+      if (move === null) return 'snapback';
+    }
+  });
 </script>
 
 </body>
