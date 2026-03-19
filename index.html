@@ -4,7 +4,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chess Game</title>
 
-  <!-- Chessboard CSS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="https://unpkg.com/chessboardjs@0.3.0/www/css/chessboard.css">
 
   <!-- Telegram -->
@@ -18,7 +18,6 @@
       color: white;
       text-align: center;
     }
-
     #board {
       width: 100%;
       max-width: 400px;
@@ -29,42 +28,32 @@
 
 <body>
 
-  <h2>Chess Game</h2>
-  <div id="board"></div>
+<h2>Chess Game</h2>
+<div id="board"></div>
 
-  <!-- JS -->
-  <script src="chess.js"></script>
-  <script src="https://unpkg.com/chessboardjs@0.3.0/www/js/chessboard.js"></script>
+<!-- JS ORDER VERY IMPORTANT -->
+<script src="chess.js"></script>
+<script src="https://unpkg.com/chessboardjs@0.3.0/www/js/chessboard.js"></script>
 
-  <script>
-    let tg = window.Telegram.WebApp;
-    tg.expand();
+<script>
+window.onload = function () {
 
-    var board = null;
-    var game = new Chess();
+  let tg = window.Telegram.WebApp;
+  tg.expand();
 
-    function onDrop(source, target) {
-      var move = game.move({
-        from: source,
-        to: target,
-        promotion: 'q'
-      });
+  var game = new Chess();
 
-      if (move === null) return 'snapback';
-    }
+  function onDrop(source, target) {
+    var move = game.move({
+      from: source,
+      to: target,
+      promotion: 'q'
+    });
 
-    function init() {
-      var config = {
-        draggable: true,
-        position: 'start',
-        onDrop: onDrop
-      };
+    if (move === null) return 'snapback';
+  }
 
-      board = Chessboard('board', config);
-    }
-
-    init();
-  </script>
-
-</body>
-</html>
+  var board = Chessboard('board', {
+    draggable: true,
+    position: 'start',
+    onDrop: onDrop
