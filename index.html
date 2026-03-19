@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.css">
+  <title>Chess Game</title>
 
+  <!-- Local CSS -->
+  <link rel="stylesheet" href="chessboard.css">
+
+  <!-- Telegram WebApp -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/1.0.0/chessboard.min.js"></script>
 
   <style>
     body {
@@ -17,6 +19,7 @@
       color: white;
       text-align: center;
     }
+
     #board {
       width: 100%;
       max-width: 400px;
@@ -27,33 +30,22 @@
 
 <body>
 
-<h2>Chess Game</h2>
-<div id="board"></div>
+  <h2>Chess Game</h2>
 
-<script>
-  window.onload = function () {
+  <div id="board"></div>
 
+  <!-- Local JS -->
+  <script src="chess.js"></script>
+  <script src="chessboard.js"></script>
+
+  <script>
+    // Telegram setup
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-    var game = new Chess();
-
-    var board = Chessboard('board', {
-      draggable: true,
-      position: 'start',
-      onDrop: function (source, target) {
-        var move = game.move({
-          from: source,
-          to: target,
-          promotion: 'q'
-        });
-
-        if (move === null) return 'snapback';
-      }
-    });
-
-  };
-</script>
+    // Show board
+    Chessboard('board', {});
+  </script>
 
 </body>
 </html>
