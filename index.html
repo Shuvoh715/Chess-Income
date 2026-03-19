@@ -2,13 +2,12 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Chess Game</title>
 
-  <!-- Local CSS -->
-  <link rel="stylesheet" href="chessboard.css">
+  <!-- Chessboard CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/chessboardjs@0.3.0/www/css/chessboard.css">
 
-  <!-- Telegram WebApp -->
+  <!-- Telegram -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
   <style>
@@ -31,20 +30,40 @@
 <body>
 
   <h2>Chess Game</h2>
-
   <div id="board"></div>
 
-  <!-- Local JS -->
+  <!-- JS -->
   <script src="chess.js"></script>
-  <script src="chessboard.js"></script>
+  <script src="https://unpkg.com/chessboardjs@0.3.0/www/js/chessboard.js"></script>
 
   <script>
-    // Telegram setup
     let tg = window.Telegram.WebApp;
     tg.expand();
 
-    // Show board
-    Chessboard('board', {});
+    var board = null;
+    var game = new Chess();
+
+    function onDrop(source, target) {
+      var move = game.move({
+        from: source,
+        to: target,
+        promotion: 'q'
+      });
+
+      if (move === null) return 'snapback';
+    }
+
+    function init() {
+      var config = {
+        draggable: true,
+        position: 'start',
+        onDrop: onDrop
+      };
+
+      board = Chessboard('board', config);
+    }
+
+    init();
   </script>
 
 </body>
